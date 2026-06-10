@@ -1,47 +1,65 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=24112831&assignment_repo_type=AssignmentRepo)
 # Day 10 Lab: Data Pipeline & Data Observability
 
-**Student Email:** email@example.com
-**Name:** (Dien ten cua ban)
+**Student ID:** khanhpv195
+**Name:** khanhpv195
 
 ---
 
 ## Mo ta
 
-(Mo ta ngan gon bai lab va nhung gi ban da lam)
+Bai lab nay xay dung mot ETL pipeline don gian cho du lieu san pham trong `raw_data.json`. Pipeline doc du lieu JSON, loai bo record khong hop le, chuan hoa category, tinh gia sau khi giam 10%, them timestamp xu ly, va luu ket qua vao `processed_data.csv`. Bai lab cung co stress test de so sanh cach mot agent tra loi khi dung clean data va garbage data.
 
 ---
 
-## Cach chay (How to Run)
+## Cach chay
 
 ### Prerequisites
+
 ```bash
-pip install pandas
+pip install pandas pytest
 ```
 
 ### Chay ETL Pipeline
+
 ```bash
 python solution.py
 ```
 
-### Chay Agent Simulation (Stress Test)
-```bash
-# Mo ta cach ban chay thi nghiem Clean vs Garbage data
+Output chinh:
+
+```text
+Extracted 5 records.
+Validation complete. 3 valid records kept, 2 invalid records dropped.
+Transform complete. 3 records processed.
+Data saved to processed_data.csv. 3 records loaded.
 ```
+
+### Tao Garbage Data va chay Agent Simulation
+
+```bash
+python generate_garbage.py
+python agent_simulation.py
+```
+
+Ket qua thi nghiem duoc ghi trong `experiment_report.md`.
 
 ---
 
 ## Cau truc thu muc
 
-```
-├── solution.py              # ETL Pipeline script
-├── processed_data.csv       # Output cua pipeline
-├── experiment_report.md     # Bao cao thi nghiem
-└── README.md                # File nay
+```text
+solution.py             # ETL pipeline script
+raw_data.json           # Input JSON data
+processed_data.csv      # Clean output cua pipeline
+generate_garbage.py     # Tao garbage_data.csv
+garbage_data.csv        # Du lieu co duplicate, wrong type, outlier, null
+agent_simulation.py     # Mo phong agent dung du lieu CSV
+experiment_report.md    # Bao cao stress test
+tests/test_autograder.py
 ```
 
 ---
 
 ## Ket qua
 
-(Tom tat ket qua: bao nhieu records da xu ly, bao nhieu bi loai, v.v.)
+Pipeline xu ly 5 records tu `raw_data.json`, giu lai 3 records hop le va loai 2 records loi do `price <= 0` hoac `category` rong. File output co cac cot `discounted_price` va `processed_at` de dap ung yeu cau transformation va observability.
